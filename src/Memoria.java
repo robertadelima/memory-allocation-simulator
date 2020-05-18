@@ -3,15 +3,24 @@ import java.util.ArrayList;
 public class Memoria {
 
 	private int tamanho;
-	private int[] posicoes;   
+	private int[] posicoes;
+	private String algoritmo;
 	private ArrayList<Processo> processosAlocadosAtualmente;
 	private ArrayList<Processo> processosNaoAlocados;
 
-	public Memoria(int tamanho) {
+	public Memoria(int tamanho, String algoritmo) {
 		this.tamanho = tamanho;
 		this.posicoes = new int[tamanho];
+		this.algoritmo = algoritmo;
 		this.processosAlocadosAtualmente = new ArrayList<>();
 		this.processosNaoAlocados = new ArrayList<>();
+	}
+	
+	//Método genérico que verifica qual o algoritmo que a memória utiliza e aloca usando o mesmo
+	public boolean alocar(Processo p) {
+		if(this.algoritmo == "First Fit") return firstFit(p);
+		else if(this.algoritmo == "Best Fit") return bestFit(p);
+		else return worstFit(p);
 	}
 
 	//FIRST FIT: Busca o primeiro espaço vazio contiguo na memoria e aloca
@@ -149,6 +158,10 @@ public class Memoria {
 
 	public int[] getPosicoes() {
 		return posicoes;
+	}
+	
+	public String getAlgoritmo() {
+		return algoritmo;
 	}
 
 	public int getPosicao(int index) {

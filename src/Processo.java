@@ -7,10 +7,10 @@ public class Processo {
 	private int bitInicio;
 	private int cicloDeInicio;
 
-	public Processo(int processoNum, int cicloAtual) {
-		this.tamanho = (int)(Math.random() * 40) + 10;
+	public Processo(int processoId, int cicloAtual) {
+		this.tamanho = (int)(Math.random() * 40) + 10;  
 		this.ciclos = (int)(Math.random() * 5) + 5;
-		this.id = processoNum;
+		this.id = processoId;
 		this.cicloDeInicio = cicloAtual;
 	}
 
@@ -20,7 +20,7 @@ public class Processo {
 
 	public void imprimir() {
 		System.out.println("Processo " + id + "- Tamanho: " + tamanho + 
-				", Ciclos: " + ciclos + ", bit início: " + bitInicio);
+				", Ciclos: " + ciclos);
 	}
 	
 	public int getNumero() {

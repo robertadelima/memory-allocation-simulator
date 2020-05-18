@@ -1,21 +1,21 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
 		int tamanhoMemoria = 100;
-		Memoria memoria = new Memoria(tamanhoMemoria);
+		Memoria memoriaFirstFit = new Memoria(tamanhoMemoria, "First Fit");
+		Memoria memoriaBestFit = new Memoria(tamanhoMemoria, "Best Fit");
+		Memoria memoriaWorstFit = new Memoria(tamanhoMemoria, "Worst Fit");
+		
+		ArrayList<Memoria> memorias = new ArrayList<>();
+		memorias.add(memoriaFirstFit);
+		memorias.add(memoriaBestFit);
+		memorias.add(memoriaWorstFit);
 		
 		int totalCiclos = 100;
 		int taxaGeracaoProcessos = 2; //a cada x ciclos, gera um processo novo
-		
-		/*int escolha = -1;
-		Scanner sc = new Scanner(System.in);
-		while(1 > escolha || escolha > 3) {
-			System.out.println("Qual algoritmo deseja utilizar? 1.FirstFit, 2.BestFit, 3.WorstFit");
-			escolha = sc.nextInt();
-		}*/
 		
 		int processoId = 0;
 
@@ -25,26 +25,31 @@ public class Main {
 			if(i % taxaGeracaoProcessos == 0) { 
 				processoId++;
 				Processo p = new Processo(processoId, i);
-				System.out.println("Processo " + processoId + " criado!");
+				System.out.print("Processo " + processoId + " criado. ");
+				p.imprimir();
 				
-				if(memoria.worstFit(p)) {
-					memoria.adicionarEmProcessosAlocados(p);
-					System.out.print("Alocado. ");
-					p.imprimir();
+				for(Memoria memoria : memorias) {
+					if(memoria.alocar(p)) {
+						memoria.adicionarEmProcessosAlocados(p);
+						System.out.println(memoria.getAlgoritmo() + ": Alocado. ");
+					}
+					else {
+						memoria.adicionarEmProcessosNaoAlocados(p);
+						System.out.println(memoria.getAlgoritmo() + ": Não Alocado. ");
+					}
+					memoria.atualizaProcessosAlocados(i);
+					memoria.imprimirPosicoes();
 				}
-				else {
-					memoria.adicionarEmProcessosNaoAlocados(p);
-					System.out.print("Não Alocado. ");
-					p.imprimir();
-				}
-				
 			}
-			memoria.atualizaProcessosAlocados(i);
-			memoria.imprimirPosicoes();
+
 		}
-		System.out.println("Total de Processos Gerados: " + (processoId));
-		System.out.println("Nº Processos Alocados: " + (processoId - memoria.getProcessosNaoAlocados().size()));
-		System.out.println("Nº Processos Não Alocados: " + memoria.getProcessosNaoAlocados().size());
+		for(Memoria memoria : memorias) {
+			System.out.println("------ Algoritmo " + memoria.getAlgoritmo() + " ------");
+			System.out.println("Total de Processos Gerados: " + (processoId));
+			System.out.println("Nº Processos Alocados: " + (processoId - memoria.getProcessosNaoAlocados().size()));
+			System.out.println("Nº Processos Não Alocados: " + memoria.getProcessosNaoAlocados().size());
+			System.out.println("");
+		}
 	}
 	
 	

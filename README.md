@@ -1,10 +1,10 @@
 # Memory Allocation Simulator
 This project is a memory allocation simulator developed for an Operating Systems (OS) class.
 
-## Algorithms
+### Algorithms
 First Fit, Best Fit and Worst Fit are all three implemented in this project.
 
-## Project requirements
+### Requirements
 
 Memory capacity: 1000 bytes  
 Number of cycles to run: 1000 cycles  

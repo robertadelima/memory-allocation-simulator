@@ -1,5 +1,8 @@
-# memory-allocation-simulator
-This project is a memory allocation simulator developed for an Operating Systems (OS) class, using the First Fit algorithm.
+# Memory Allocation Simulator
+This project is a memory allocation simulator developed for an Operating Systems (OS) class.
+
+## Algorithms:
+First Fit, Best Fit and Worst Fit are all three implemented, so their efficency can be simulated and compared.
 
 ## Project requirements:
 

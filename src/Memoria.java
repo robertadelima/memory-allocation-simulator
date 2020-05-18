@@ -4,6 +4,8 @@ public class Memoria {
 
 	private int tamanho;
 	private int[] posicoes;   //array que representa cada posição
+	private int qtdProcessosAlocados;
+	private int qtdProcessosNaoAlocados;
 	private ArrayList<Processo> processosAlocados;
 	private ArrayList<Processo> processosNaoAlocados;
 	
@@ -12,8 +14,26 @@ public class Memoria {
 		this.posicoes = new int[tamanho];
 		this.processosAlocados = new ArrayList<>();
 		this.processosNaoAlocados = new ArrayList<>();
+		qtdProcessosAlocados = 0;
+		qtdProcessosNaoAlocados = 0;
 	}
 	
+	public int getQtdProcessosAlocados() {
+		return qtdProcessosAlocados;
+	}
+
+	public void setQtdProcessosAlocados(int qtdProcessosAlocados) {
+		this.qtdProcessosAlocados = qtdProcessosAlocados;
+	}
+
+	public int getQtdProcessosNaoAlocados() {
+		return qtdProcessosNaoAlocados;
+	}
+
+	public void setQtdProcessosNaoAlocados(int qtdProcessosNaoAlocados) {
+		this.qtdProcessosNaoAlocados = qtdProcessosNaoAlocados;
+	}
+
 	public void atualizaProcessosAlocados(int cicloAtual){
 		Processo p;
 		for(int i = 0; i < processosAlocados.size(); i++){
@@ -29,10 +49,12 @@ public class Memoria {
 	
 	public void adicionarEmProcessosAlocados(Processo p) {
 		this.processosAlocados.add(p);
+		this.qtdProcessosAlocados++;
 	}
 	
 	public void adicionarEmProcessosNaoAlocados(Processo p) {
 		this.processosNaoAlocados.add(p);
+		this.qtdProcessosNaoAlocados++;
 	}
 	
 	public void imprimirPosicoes() {
@@ -41,6 +63,12 @@ public class Memoria {
 			if(i % 50 == 0 && i != 0) System.out.println("");
 		}
 		System.out.println("");
+	}
+	
+	public void imprimirProcessosAlocados() {
+		for(Processo p: processosAlocados) {
+			p.imprimir();
+		}
 	}
 	
 	public int getTamanho() {

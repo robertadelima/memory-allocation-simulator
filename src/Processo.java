@@ -41,7 +41,7 @@ public class Processo {
 	
 	
 	public void imprimir() {
-		System.out.println("Tamanho: " + tamanho + ", Ciclos: " + ciclos + ", bit início: " + bitInicio);
+		System.out.println("Processo " + numero + "- Tamanho: " + tamanho + ", Ciclos: " + ciclos + ", bit início: " + bitInicio);
 	}
 	
 	public int getNumero() {

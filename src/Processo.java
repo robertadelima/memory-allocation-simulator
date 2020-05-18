@@ -17,6 +17,7 @@ public class Processo {
 	//método que busca o primeiro espaço vazio contiguo na memoria e aloca
 	public boolean firstFit(int[] memoria) {
 		boolean encontrouEspaco = false;
+		int inicioDoEspaco = 0;
 		int espaco = 0;
 		int posicao = 0;
 		for(int i = 0; i < memoria.length; i++) {
@@ -24,14 +25,15 @@ public class Processo {
 			else espaco = 0; //senão, quebra a continuidade
 				
 			if(espaco == this.tamanho) {
+				inicioDoEspaco = i - (this.tamanho - 1);
 				encontrouEspaco = true;
 				posicao = i;
 				break;				
 			}
 		}
 		if(encontrouEspaco) {
-			for(int i = posicao; i < posicao+this.tamanho; i++) {
-				memoria[i] = this.numero;
+			for(int j = inicioDoEspaco; j < posicao; j++) {
+				memoria[j] = this.numero;
 			}
 			return true;
 		}

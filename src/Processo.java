@@ -13,33 +13,11 @@ public class Processo {
 		this.numero = processoNum;
 		this.cicloDeInicio = cicloAtual;
 	}
-	
-	//método que busca o primeiro espaço vazio contiguo na memoria e aloca
-	public boolean firstFit(Memoria memoria) {
-		boolean encontrouEspaco = false;
-		int espaco = 0;
-		int posicao = 0;
-		for(int i = 0; i < memoria.getPosicoes().length; i++) {
-			if(memoria.getPosicoes()[i] == 0) espaco++; //se encontra um espaço vazio
-			else espaco = 0; //senão, quebra a continuidade
-				
-			if(espaco == this.tamanho) {
-				this.bitInicio = i - (this.tamanho - 1);
-				encontrouEspaco = true;
-				posicao = i;
-				break;				
-			}
-		}
-		if(encontrouEspaco) {
-			for(int j = bitInicio; j < posicao; j++) {
-				memoria.getPosicoes()[j] = this.numero;
-			}
-			return true;
-		}
-		return false;
+
+	public void setBitInicio(int bitInicio) {
+		this.bitInicio = bitInicio;
 	}
-	
-	
+
 	public void imprimir() {
 		System.out.println("Processo " + numero + "- Tamanho: " + tamanho + ", Ciclos: " + ciclos + ", bit início: " + bitInicio);
 	}
@@ -63,5 +41,7 @@ public class Processo {
 	public int getCicloDeInicio() {
 		return cicloDeInicio;
 	}
+
+
 
 }

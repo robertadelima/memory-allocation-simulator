@@ -3,37 +3,35 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		int tamMemoria = 1000;
-		Memoria memoria = new Memoria(tamMemoria);
+		int tamanhoMemoria = 100;
+		Memoria memoria = new Memoria(tamanhoMemoria);
 		
-		int totalCiclos = 1000;
+		int totalCiclos = 100;
 		int taxaDeGeracaoDeProcessos = 2; //a cada x ciclos, gera um processo novo
 		
-		int cicloAtual = 0;
 		int processoNum = 0;
-		boolean alocacaoBemSucedida = false;
 
-		while(cicloAtual <= totalCiclos) {
-			cicloAtual++;
-			System.out.println("-------- CICLO " + cicloAtual + " --------");
+		for(int i = 1; i < totalCiclos; i++) {
+			System.out.println("-------- CICLO " + i + " --------");
 			
-			if(cicloAtual % taxaDeGeracaoDeProcessos == 0) { 
+			if(i % taxaDeGeracaoDeProcessos == 0) { 
 				processoNum++;
-				Processo p1 = new Processo(processoNum, cicloAtual);
+				Processo p = new Processo(processoNum, i);
 				System.out.println("Processo " + processoNum + " criado!");
-				alocacaoBemSucedida = p1.firstFit(memoria);
-				if(alocacaoBemSucedida) {
-					memoria.adicionarEmProcessosAlocados(p1);
+				
+				if(memoria.firstFit(p)) {
+					memoria.adicionarEmProcessosAlocados(p);
 					System.out.print("Alocado. ");
-					p1.imprimir();
+					p.imprimir();
 				}
 				else {
-					memoria.adicionarEmProcessosNaoAlocados(p1);
+					memoria.adicionarEmProcessosNaoAlocados(p);
 					System.out.print("Não Alocado. ");
-					p1.imprimir();
+					p.imprimir();
 				}
+				
 			}
-			memoria.atualizaProcessosAlocados(cicloAtual);
+			memoria.atualizaProcessosAlocados(i);
 			memoria.imprimirPosicoes();
 		}
 		System.out.println("Total de Processos Gerados: " + (memoria.getQtdProcessosAlocados() + memoria.getQtdProcessosNaoAlocados()));

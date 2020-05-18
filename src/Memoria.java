@@ -41,7 +41,7 @@ public class Memoria {
 	public boolean bestFit(Processo p) {
 		
 		int inicioBestFit = 0; 
-		int espacoBestFit = tamanho+1; //inicializando com o tamanho da memória +1
+		int espacoBestFit = tamanho+1; //inicializando com o tamanho da memória +1 (maior do que o máximo)
 		int inicio = 0;
 		int espaco = 0;
 		for(int i = 0; i < posicoes.length; i++) {
@@ -71,6 +71,40 @@ public class Memoria {
 		return false;
 	}
 
+	//WORST FIT: Busca espaço com maior tamanho
+		public boolean worstFit(Processo p) {
+			
+			int inicioBestFit = 0; 
+			int espacoBestFit = 0; //inicializando com o menor tamanho possível (0)
+			int inicio = 0;
+			int espaco = 0;
+			for(int i = 0; i < posicoes.length; i++) {
+				if(posicoes[i] == 0) espaco++; //se encontra, soma um espaço vazio
+				else {
+					if(espaco >= p.getTamanho() && espaco > espacoBestFit) {
+						espacoBestFit = espaco;
+						inicioBestFit = inicio;
+					}
+					espaco = 0; //senão, quebra a continuidade
+					inicio = i+1; //comeca a contar a partir do próximo
+				}
+				if(i == posicoes.length - 1) { //se chegar no final
+					if(espaco >= p.getTamanho() && espaco > espacoBestFit) {
+						espacoBestFit = espaco;
+						inicioBestFit = inicio;
+					}
+				}
+			}
+			if(espacoBestFit != 0) {  //se encontrou um espaço
+				p.setBitInicio(inicioBestFit);
+				for(int j = p.getBitInicio(); j < (p.getBitInicio() + p.getTamanho()); j++) {
+					posicoes[j] = p.getNumero();
+				}
+				return true;
+			}
+			return false;
+		}
+	
 	public void atualizaProcessosAlocados(int cicloAtual){
 		ArrayList<Processo> processosFinalizados = new ArrayList<>();
 		for(Processo p : processosAlocadosAtualmente){

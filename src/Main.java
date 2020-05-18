@@ -27,7 +27,7 @@ public class Main {
 				Processo p = new Processo(processoId, i);
 				System.out.println("Processo " + processoId + " criado!");
 				
-				if(memoria.bestFit(p)) {
+				if(memoria.worstFit(p)) {
 					memoria.adicionarEmProcessosAlocados(p);
 					System.out.print("Alocado. ");
 					p.imprimir();

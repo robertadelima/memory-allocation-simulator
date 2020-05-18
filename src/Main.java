@@ -41,8 +41,10 @@ public class Main {
 			}
 			for(Memoria memoria : memorias) {
 				memoria.atualizaProcessosAlocados(i);
+				System.out.println(memoria.getAlgoritmo());
 				memoria.imprimirPosicoes();
 			}
+			System.out.println("");
 		}
 		
 		for(Memoria memoria : memorias) {

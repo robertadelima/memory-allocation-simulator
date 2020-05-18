@@ -1,12 +1,12 @@
 
 public class Processo {
 	
-	int numero;
-	int tamanho; //varia de 10kb até 50kb
-	int ciclos; //ficam na memória de 5 a 10 ciclos
-	int bitInicio;
-	int cicloDeInicio;
-	
+	private int numero;
+	private int tamanho; //varia de 10kb até 50kb
+	private int ciclos; //ficam na memória de 5 a 10 ciclos
+	private int bitInicio;
+	private int cicloDeInicio;
+
 	public Processo(int processoNum, int cicloAtual) {
 		this.tamanho = (int)(Math.random() * 40) + 10;
 		this.ciclos = (int)(Math.random() * 5) + 5;
@@ -19,8 +19,8 @@ public class Processo {
 		boolean encontrouEspaco = false;
 		int espaco = 0;
 		int posicao = 0;
-		for(int i = 0; i < memoria.posicoes.length; i++) {
-			if(memoria.posicoes[i] == 0) espaco++; //se encontra um espaço vazio
+		for(int i = 0; i < memoria.getPosicoes().length; i++) {
+			if(memoria.getPosicoes()[i] == 0) espaco++; //se encontra um espaço vazio
 			else espaco = 0; //senão, quebra a continuidade
 				
 			if(espaco == this.tamanho) {
@@ -32,7 +32,7 @@ public class Processo {
 		}
 		if(encontrouEspaco) {
 			for(int j = bitInicio; j < posicao; j++) {
-				memoria.posicoes[j] = this.numero;
+				memoria.getPosicoes()[j] = this.numero;
 			}
 			return true;
 		}
@@ -41,10 +41,48 @@ public class Processo {
 	
 	
 	public void imprimir() {
-		System.out.println("Tamanho: " + tamanho);
-		System.out.println("Nº Ciclos: " + ciclos);
+		System.out.println("Tamanho: " + tamanho + ", Ciclos: " + ciclos + ", bit início: " + bitInicio);
 	}
 	
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public int getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public int getCiclos() {
+		return ciclos;
+	}
+
+	public void setCiclos(int ciclos) {
+		this.ciclos = ciclos;
+	}
+
+	public int getBitInicio() {
+		return bitInicio;
+	}
+
+	public void setBitInicio(int bitInicio) {
+		this.bitInicio = bitInicio;
+	}
+
+	public int getCicloDeInicio() {
+		return cicloDeInicio;
+	}
+
+	public void setCicloDeInicio(int cicloDeInicio) {
+		this.cicloDeInicio = cicloDeInicio;
+	}
 
 
 }

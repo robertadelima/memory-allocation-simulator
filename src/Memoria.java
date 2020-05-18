@@ -2,40 +2,78 @@ import java.util.ArrayList;
 
 public class Memoria {
 
-	int tamanho;
-	int[] posicoes;   //array que representa cada posição
-	ArrayList<Processo> processosEmMemoria = new ArrayList<>();
-	ArrayList<Processo> processosNaoAlocados = new ArrayList<>();
+	private int tamanho;
+	private int[] posicoes;   //array que representa cada posição
+	private ArrayList<Processo> processosAlocados;
+	private ArrayList<Processo> processosNaoAlocados;
 	
 	public Memoria(int tamanho) {
 		this.tamanho = tamanho;
 		this.posicoes = new int[tamanho];
+		this.processosAlocados = new ArrayList<>();
+		this.processosNaoAlocados = new ArrayList<>();
 	}
 	
 	public void atualizaProcessosAlocados(int cicloAtual){
-		System.out.println("Entrou aqui!!!");
 		Processo p;
-		for(int i = 0; i < processosEmMemoria.size(); i++){ //
-			System.out.println("FOR");
-			p = processosEmMemoria.get(i);
-			if(p.cicloDeInicio + p.ciclos == cicloAtual) {
-				for(int j = p.bitInicio; j < p.bitInicio + p.tamanho; j++) {
+		for(int i = 0; i < processosAlocados.size(); i++){
+			p = processosAlocados.get(i);
+			if(p.getCicloDeInicio() + p.getCiclos() == cicloAtual) {
+				for(int j = p.getBitInicio(); j < p.getBitInicio() + p.getTamanho(); j++) {
 					posicoes[j] = 0; //liberando o espaço da memória
 				}
+				this.processosAlocados.remove(i);
 			}
-			System.out.println("AtualizaProcessosEmMemoria");
-			System.out.println("Memoria: ");
-			imprimirPosicoes();
-			processosEmMemoria.remove(i);
 		}
+	}
+	
+	public void adicionarEmProcessosAlocados(Processo p) {
+		this.processosAlocados.add(p);
+	}
+	
+	public void adicionarEmProcessosNaoAlocados(Processo p) {
+		this.processosNaoAlocados.add(p);
 	}
 	
 	public void imprimirPosicoes() {
 		for(int i = 0; i < posicoes.length; i++) {
 			System.out.print(posicoes[i] + " ");
-			if(i % 60 == 0 && i != 0) System.out.println("");
+			if(i % 50 == 0 && i != 0) System.out.println("");
 		}
 		System.out.println("");
 	}
+	
+	public int getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public int[] getPosicoes() {
+		return posicoes;
+	}
+
+	public void setPosicoes(int[] posicoes) {
+		this.posicoes = posicoes;
+	}
+
+	public ArrayList<Processo> getProcessosAlocados() {
+		return processosAlocados;
+	}
+
+	public void setProcessosAlocados(ArrayList<Processo> processosAlocados) {
+		this.processosAlocados = processosAlocados;
+	}
+
+	public ArrayList<Processo> getProcessosNaoAlocados() {
+		return processosNaoAlocados;
+	}
+
+	public void setProcessosNaoAlocados(ArrayList<Processo> processosNaoAlocados) {
+		this.processosNaoAlocados = processosNaoAlocados;
+	}
+
 	
 }

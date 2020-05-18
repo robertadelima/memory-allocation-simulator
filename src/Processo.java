@@ -48,41 +48,20 @@ public class Processo {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
 	public int getTamanho() {
 		return tamanho;
-	}
-
-	public void setTamanho(int tamanho) {
-		this.tamanho = tamanho;
 	}
 
 	public int getCiclos() {
 		return ciclos;
 	}
 
-	public void setCiclos(int ciclos) {
-		this.ciclos = ciclos;
-	}
-
 	public int getBitInicio() {
 		return bitInicio;
-	}
-
-	public void setBitInicio(int bitInicio) {
-		this.bitInicio = bitInicio;
 	}
 
 	public int getCicloDeInicio() {
 		return cicloDeInicio;
 	}
-
-	public void setCicloDeInicio(int cicloDeInicio) {
-		this.cicloDeInicio = cicloDeInicio;
-	}
-
 
 }

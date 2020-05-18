@@ -22,16 +22,8 @@ public class Memoria {
 		return qtdProcessosAlocados;
 	}
 
-	public void setQtdProcessosAlocados(int qtdProcessosAlocados) {
-		this.qtdProcessosAlocados = qtdProcessosAlocados;
-	}
-
 	public int getQtdProcessosNaoAlocados() {
 		return qtdProcessosNaoAlocados;
-	}
-
-	public void setQtdProcessosNaoAlocados(int qtdProcessosNaoAlocados) {
-		this.qtdProcessosNaoAlocados = qtdProcessosNaoAlocados;
 	}
 
 	public void atualizaProcessosAlocados(int cicloAtual){
@@ -75,33 +67,16 @@ public class Memoria {
 		return tamanho;
 	}
 
-	public void setTamanho(int tamanho) {
-		this.tamanho = tamanho;
-	}
-
 	public int[] getPosicoes() {
 		return posicoes;
-	}
-
-	public void setPosicoes(int[] posicoes) {
-		this.posicoes = posicoes;
 	}
 
 	public ArrayList<Processo> getProcessosAlocados() {
 		return processosAlocados;
 	}
 
-	public void setProcessosAlocados(ArrayList<Processo> processosAlocados) {
-		this.processosAlocados = processosAlocados;
-	}
-
 	public ArrayList<Processo> getProcessosNaoAlocados() {
 		return processosNaoAlocados;
 	}
-
-	public void setProcessosNaoAlocados(ArrayList<Processo> processosNaoAlocados) {
-		this.processosNaoAlocados = processosNaoAlocados;
-	}
-
 	
 }

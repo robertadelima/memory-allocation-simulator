@@ -37,12 +37,14 @@ public class Main {
 						memoria.adicionarEmProcessosNaoAlocados(p);
 						System.out.println(memoria.getAlgoritmo() + ": Não Alocado. ");
 					}
-					memoria.atualizaProcessosAlocados(i);
-					memoria.imprimirPosicoes();
 				}
 			}
-
+			for(Memoria memoria : memorias) {
+				memoria.atualizaProcessosAlocados(i);
+				memoria.imprimirPosicoes();
+			}
 		}
+		
 		for(Memoria memoria : memorias) {
 			System.out.println("------ Algoritmo " + memoria.getAlgoritmo() + " ------");
 			System.out.println("Total de Processos Gerados: " + (processoId));

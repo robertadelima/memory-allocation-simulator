@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /*EXERCÍCIO
 Faça um simulador de alocação de memória.
 Considere que:
@@ -17,15 +15,13 @@ indicando o local de alocação do mesmo.
 
 
 public class Main {
-	
-	static ArrayList<Processo> processosEmMemoria = new ArrayList<>();
-	static ArrayList<Processo> processosNaoAlocados = new ArrayList<>();
 
 	public static void main(String[] args) {
 		
-		int tamMemoria = 1000;
-		int[] memoria = new int[tamMemoria]; //array que representa casa posição na memória
-		int totalDeCiclos = 30;
+		int tamMemoria = 200;
+		Memoria memoria = new Memoria(tamMemoria);
+		
+		int totalDeCiclos = 100;
 		int cicloAtual = 0;
 		int processoNum = 0;
 		boolean alocacaoBemSucedida = false;
@@ -40,35 +36,22 @@ public class Main {
 				System.out.println("Processo " + processoNum + " criado!");
 				alocacaoBemSucedida = p1.firstFit(memoria);
 				if(alocacaoBemSucedida) {
-					processosEmMemoria.add(p1);
+					memoria.processosEmMemoria.add(p1);
 					System.out.println("Alocado. Tamanho: " + p1.tamanho + ", Ciclos: " + p1.ciclos + ", bit início: " + p1.bitInicio);
 				}
 				else {
-					processosNaoAlocados.add(p1);
+					memoria.processosNaoAlocados.add(p1);
 					System.out.println("Não Alocado");
 				}
 			}
-			imprimirMemoria(memoria);
+			memoria.atualizaProcessosAlocados(cicloAtual);
+			memoria.imprimirPosicoes();
 		}
 	}
 	
-	public static void atualizaProcessosNaMemoria(int cicloAtual, int[] memoria){
-		for(Processo p: processosEmMemoria){ //
-			if(p.cicloDeInicio + p.ciclos == cicloAtual) {
-				for(int i = p.bitInicio; i < p.bitInicio + p.tamanho; i++) {
-					memoria[i] = 0; //liberando o espaço da memória
-				}
-			}
-			processosEmMemoria.remove(p);
-		}
-	}
 	
-	public static void imprimirMemoria(int[] memoria) {
-		for(int i = 0; i < memoria.length; i++) {
-			System.out.print(memoria[i] + " ");
-		}
-		System.out.println("");
-	}
+	
+
 	
 
 }

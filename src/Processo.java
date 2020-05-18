@@ -1,16 +1,16 @@
 
 public class Processo {
 	
-	private int numero;
-	private int tamanho; //varia de 10kb até 50kb
-	private int ciclos; //ficam na memória de 5 a 10 ciclos
+	private int id;
+	private int tamanho; 
+	private int ciclos; 
 	private int bitInicio;
 	private int cicloDeInicio;
 
 	public Processo(int processoNum, int cicloAtual) {
 		this.tamanho = (int)(Math.random() * 40) + 10;
 		this.ciclos = (int)(Math.random() * 5) + 5;
-		this.numero = processoNum;
+		this.id = processoNum;
 		this.cicloDeInicio = cicloAtual;
 	}
 
@@ -19,11 +19,12 @@ public class Processo {
 	}
 
 	public void imprimir() {
-		System.out.println("Processo " + numero + "- Tamanho: " + tamanho + ", Ciclos: " + ciclos + ", bit início: " + bitInicio);
+		System.out.println("Processo " + id + "- Tamanho: " + tamanho + 
+				", Ciclos: " + ciclos + ", bit início: " + bitInicio);
 	}
 	
 	public int getNumero() {
-		return numero;
+		return id;
 	}
 
 	public int getTamanho() {

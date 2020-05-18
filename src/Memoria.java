@@ -4,18 +4,14 @@ public class Memoria {
 
 	private int tamanho;
 	private int[] posicoes;   
-	private int qtdProcessosAlocados;
-	private int qtdProcessosNaoAlocados;
-	private ArrayList<Processo> processosAlocados;
+	private ArrayList<Processo> processosAlocadosAtualmente;
 	private ArrayList<Processo> processosNaoAlocados;
 
 	public Memoria(int tamanho) {
 		this.tamanho = tamanho;
 		this.posicoes = new int[tamanho];
-		this.processosAlocados = new ArrayList<>();
+		this.processosAlocadosAtualmente = new ArrayList<>();
 		this.processosNaoAlocados = new ArrayList<>();
-		qtdProcessosAlocados = 0;
-		qtdProcessosNaoAlocados = 0;
 	}
 
 	//FIRST FIT: Busca o primeiro espaço vazio contiguo na memoria e aloca
@@ -40,10 +36,44 @@ public class Memoria {
 		}
 		return false;
 	}
+	
+	//BEST FIT: Busca espaço que mais se aproxima do tamanho do processo a ser alocado
+	public boolean bestFit(Processo p) {
+		
+		int inicioBestFit = 0; 
+		int espacoBestFit = tamanho+1; //inicializando com o tamanho da memória +1
+		int inicio = 0;
+		int espaco = 0;
+		for(int i = 0; i < posicoes.length; i++) {
+			if(posicoes[i] == 0) espaco++; //se encontra, soma um espaço vazio
+			else {
+				if(espaco >= p.getTamanho() && espaco < espacoBestFit) {
+					espacoBestFit = espaco;
+					inicioBestFit = inicio;
+				}
+				espaco = 0; //senão, quebra a continuidade
+				inicio = i+1; //comeca a contar a partir do próximo
+			}
+			if(i == posicoes.length - 1) { //se chegar no final
+				if(espaco >= p.getTamanho() && espaco < espacoBestFit) {
+					espacoBestFit = espaco;
+					inicioBestFit = inicio;
+				}
+			}
+		}
+		if(espacoBestFit != tamanho+1) {  //se encontrou um espaço
+			p.setBitInicio(inicioBestFit);
+			for(int j = p.getBitInicio(); j < (p.getBitInicio() + p.getTamanho()); j++) {
+				posicoes[j] = p.getNumero();
+			}
+			return true;
+		}
+		return false;
+	}
 
 	public void atualizaProcessosAlocados(int cicloAtual){
 		ArrayList<Processo> processosFinalizados = new ArrayList<>();
-		for(Processo p : processosAlocados){
+		for(Processo p : processosAlocadosAtualmente){
 			if(p.getCicloDeInicio() + p.getCiclos() == cicloAtual) {
 				for(int j = p.getBitInicio(); j < p.getBitInicio() + p.getTamanho(); j++) {
 					posicoes[j] = 0; //liberando o espaço da memória
@@ -53,26 +83,16 @@ public class Memoria {
 		}
 		//remover da lista de atualmente alocados
 		for(Processo p : processosFinalizados) {
-			processosAlocados.remove(p);
+			processosAlocadosAtualmente.remove(p);
 		}
 	}
 
 	public void adicionarEmProcessosAlocados(Processo p) {
-		this.processosAlocados.add(p);
-		this.qtdProcessosAlocados++;
+		this.processosAlocadosAtualmente.add(p);
 	}
 
 	public void adicionarEmProcessosNaoAlocados(Processo p) {
 		this.processosNaoAlocados.add(p);
-		this.qtdProcessosNaoAlocados++;
-	}
-
-	public int getQtdProcessosAlocados() {
-		return qtdProcessosAlocados;
-	}
-
-	public int getQtdProcessosNaoAlocados() {
-		return qtdProcessosNaoAlocados;
 	}
 
 	public void imprimirPosicoes() {
@@ -84,7 +104,7 @@ public class Memoria {
 	}
 
 	public void imprimirProcessosAlocados() {
-		for(Processo p: processosAlocados) {
+		for(Processo p: processosAlocadosAtualmente) {
 			p.imprimir();
 		}
 	}
@@ -102,7 +122,7 @@ public class Memoria {
 	}
 
 	public ArrayList<Processo> getProcessosAlocados() {
-		return processosAlocados;
+		return processosAlocadosAtualmente;
 	}
 
 	public ArrayList<Processo> getProcessosNaoAlocados() {

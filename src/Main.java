@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Main {
 
@@ -7,19 +8,26 @@ public class Main {
 		Memoria memoria = new Memoria(tamanhoMemoria);
 		
 		int totalCiclos = 100;
-		int taxaDeGeracaoDeProcessos = 2; //a cada x ciclos, gera um processo novo
+		int taxaGeracaoProcessos = 2; //a cada x ciclos, gera um processo novo
 		
-		int processoNum = 0;
+		/*int escolha = -1;
+		Scanner sc = new Scanner(System.in);
+		while(1 > escolha || escolha > 3) {
+			System.out.println("Qual algoritmo deseja utilizar? 1.FirstFit, 2.BestFit, 3.WorstFit");
+			escolha = sc.nextInt();
+		}*/
+		
+		int processoId = 0;
 
 		for(int i = 1; i < totalCiclos; i++) {
 			System.out.println("-------- CICLO " + i + " --------");
 			
-			if(i % taxaDeGeracaoDeProcessos == 0) { 
-				processoNum++;
-				Processo p = new Processo(processoNum, i);
-				System.out.println("Processo " + processoNum + " criado!");
+			if(i % taxaGeracaoProcessos == 0) { 
+				processoId++;
+				Processo p = new Processo(processoId, i);
+				System.out.println("Processo " + processoId + " criado!");
 				
-				if(memoria.firstFit(p)) {
+				if(memoria.bestFit(p)) {
 					memoria.adicionarEmProcessosAlocados(p);
 					System.out.print("Alocado. ");
 					p.imprimir();
@@ -34,9 +42,9 @@ public class Main {
 			memoria.atualizaProcessosAlocados(i);
 			memoria.imprimirPosicoes();
 		}
-		System.out.println("Total de Processos Gerados: " + (memoria.getQtdProcessosAlocados() + memoria.getQtdProcessosNaoAlocados()));
-		System.out.println("Nº Processos Alocados: " + memoria.getQtdProcessosAlocados());
-		System.out.println("Nº Processos Não Alocados: " + memoria.getQtdProcessosNaoAlocados());
+		System.out.println("Total de Processos Gerados: " + (processoId));
+		System.out.println("Nº Processos Alocados: " + (processoId - memoria.getProcessosNaoAlocados().size()));
+		System.out.println("Nº Processos Não Alocados: " + memoria.getProcessosNaoAlocados().size());
 	}
 	
 	
